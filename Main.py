@@ -18,3 +18,10 @@
  */
 
 """
+
+# from sys import argv # I don't know if i'll need to take in command-line arguments at some point
+
+def main_menu():
+    print("""
+    Hello! Thank you for taking your cooking serious, I am excited to help you track all of your progress as a chef!
+    """)

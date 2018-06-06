@@ -1,0 +1,17 @@
+The idea that I have for constructing this project is as follows:
+
+Project able to save and load user's recipes
+
+Necessary features:
+Ask for user to enter a name or account name
+(Optional) Obtain a password for account
+Create a file to store information the user has entered
+Create a format and/or parser to read from a file and save to a file in a particular fashion
+Create functions that allow user to add, edit, or remove information in his or her account
+Use a list or dictionary in a class to hold and traverse the data in the user's account
+Have prompts to guide user through adding recipes.(How long a cook time, how many steps, what ingredients?)
+Provide a grocery list function that lets the user track what they have on-hand, and what more ingredients they need.
+Print functionality for grocery list.
+Access to a menu that will list all entered recipes.
+Favorite recipes option/list
+Account recovery protocol for forgotten passwords, backup identification
