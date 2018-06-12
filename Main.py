@@ -46,32 +46,72 @@ def recipe_menu():
     print("8. Print grocery list.")
 
 #Function used in tandem with recipe_menu() to logically decide what to do after recieving user input for the recipe_menu() function
-def recipe_menu_choice(option):
+def recipe_menu_choice(option, recipe_list, running):
     if option == "1":
         print("Okay, let's enter a recipe!")
+        new_recipe(recipe_list)
+        #return True
     elif option == "2":
         print("Okay, let's save your account!")
+        running = False
+        print(running)
+        #return running
     elif option == "3":
         print("Okay, let's edit a recipe!")
+        running = False
+        print(running)
+        #return running
     elif option == "4":
         print("Okay, let's view your recipes!")
+        running = False
+        print(running)
+        #return running
     elif option == "5":
         print("Okay, let's setup a grocery list!")
+        running = False
+        print(running)
+        #return running
     elif option == "6":
         print("Okay, let's declare a recipe your favorite!")
+        running = False
+        print(running)
+        #return running
     elif option == "7":
         print("Okay, let's print a recipe!")
+        running = False
+        print(running)
+        #return running
     elif option == "8":
         print("Okay, let's print a grocery list!")
+        running = False
+        print(running)
+        #return running
     else:
         print(f"Sorry {user}, that option does not exist.")
+        running = False
+        print(running)
+        #return running
+
+def new_recipe(recipe_list):
+    print("What recipe will you be adding today?")
+    recipe_list.append(input("> "))
+    print(recipe_list)
+    print("\nIs what your list currently looks like.")
 
 #Script begins
 
+recipe_list = [] #list to hold recipes entered sequentially
+
+running = True #variable that determines when to exit application
 main_menu()
 user = get_user_name()
-recipe_menu()
-option = make_choice()
-recipe_menu_choice(option)
 
+while(running):
+    recipe_menu()
+    option = make_choice()
+    print(running)
+    #running =
+    recipe_menu_choice(option, recipe_list, running)
+    print(running)
+print("Goodbye!")
 exit(1)
