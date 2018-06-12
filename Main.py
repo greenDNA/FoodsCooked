@@ -22,7 +22,7 @@
 import sys #import used for exit() function
 
 #Objective of class is to manage a while loop and have functions defined later be able to modify whether or not the loop should continue or end immediately
-class ProgramEngine():
+class ProgramStatus():
     #constructor function. Set member variable running to True
     def __init__(self):
         self.running = True
@@ -35,8 +35,13 @@ class ProgramEngine():
     def make_True(self):
         self.running = True
 
+    #getter function for ProgramStatus.running member variable
     def get_running(self):
         return self.running
+
+    #setter function for ProgramStatus.running member variable
+    def set_running(self, value):
+        self.running = value
 
 #Message printed when application begins
 def main_menu():
@@ -48,7 +53,7 @@ def get_user_name():
 
 #Generic function used to return user input with a prompter already configured
 def make_choice():
-    return input("> ")
+    return input("Please enter the number for the option you want.\n> ")
 
 #Function that prints to terminal all possible actions of the script, not all function, and possibly more added in future, or sub categories/menus used instead.
 def recipe_menu():
@@ -61,53 +66,53 @@ def recipe_menu():
     print("6. Favorite a recipe.")
     print("7. Print a recipe.")
     print("8. Print grocery list.")
+    print("0. Exit.")
+
+def recipe_edit(recipe_list):
+    print(recipe_list)
+    print("Which would you like to modify?")
+    #create index for recipe_list that will enumerate, and var recipe that will hold the value of recipe_list sequentially
+    for index, recipe in enumerate(recipe_list):
+        print(f"{recipe}? Enter Y if yes.")
+        #if upper or lowercase y is entered, default to lowercase and test for a match meaning 'yes'
+        if input().lower() == "y":
+            print("Enter the new recipe: ", end ="")
+            #take user input and replace value at current index of recipe_list to the new string the user gives
+            #TODO add a safecheck, are you sure message later on
+            recipe_list[index] = input()
+            break
 
 #Function used in tandem with recipe_menu() to logically decide what to do after recieving user input for the recipe_menu() function
 def recipe_menu_choice(option, recipe_list, running):
     if option == "1":
         print("Okay, let's enter a recipe!")
         new_recipe(recipe_list)
-        #return True
     elif option == "2":
         print("Okay, let's save your account!")
         running.make_False()
-        print(running.get_running())
-        #return running
     elif option == "3":
         print("Okay, let's edit a recipe!")
-        running.make_False()
-        print(running.get_running())
-        #return running
+        recipe_edit(recipe_list)
     elif option == "4":
         print("Okay, let's view your recipes!")
-        running.make_False()
-        print(running.get_running())
-        #return running
+        print(recipe_list)
     elif option == "5":
         print("Okay, let's setup a grocery list!")
         running.make_False()
-        print(running.get_running())
-        #return running
     elif option == "6":
         print("Okay, let's declare a recipe your favorite!")
         running.make_False()
-        print(running)
-        #return running
     elif option == "7":
         print("Okay, let's print a recipe!")
         running.make_False()
-        print(running.get_running())
-        #return running
     elif option == "8":
         print("Okay, let's print a grocery list!")
         running.make_False()
-        print(running.get_running())
-        #return running
+    elif option == "9":
+        recipe_menu()
     else:
         print(f"Sorry {user}, that option does not exist.")
         running.make_False()
-        print(running.get_running())
-        #return running
 
 def new_recipe(recipe_list):
     print("What recipe will you be adding today?")
@@ -119,16 +124,14 @@ def new_recipe(recipe_list):
 
 recipe_list = [] #list to hold recipes entered sequentially
 
-running = ProgramEngine()
+status = ProgramStatus()
 main_menu()
 user = get_user_name()
+recipe_menu()
 
-while(running.get_running()):
-    recipe_menu()
+while(status.get_running()):
+    print("Enter '9' to print the menu again.")
     option = make_choice()
-    print(running.get_running())
-    #running =
-    recipe_menu_choice(option, recipe_list, running)
-    print(running.get_running())
+    recipe_menu_choice(option, recipe_list, status)
 print("Goodbye!")
 exit(1)
