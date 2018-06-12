@@ -21,6 +21,22 @@
 # from sys import argv # I don't know if i'll need to take in command-line arguments at some point
 import sys #import used for exit() function
 
+class ProgramEngine():
+    #constructor function. Set member variable running to True
+    def __init__(self):
+        self.running = True
+
+    #alter value of running to False
+    def make_False(self):
+        self.running = False
+
+    #alter value of running to True
+    def make_True(self):
+        self.running = True
+
+    def get_running(self):
+        return self.running
+
 #Message printed when application begins
 def main_menu():
     print("Hello! Thank you for taking your cooking serious, I am excited to help you track all of your progress as a chef!")
@@ -53,43 +69,43 @@ def recipe_menu_choice(option, recipe_list, running):
         #return True
     elif option == "2":
         print("Okay, let's save your account!")
-        running = False
-        print(running)
+        running.make_False()
+        print(running.get_running())
         #return running
     elif option == "3":
         print("Okay, let's edit a recipe!")
-        running = False
-        print(running)
+        running.make_False()
+        print(running.get_running())
         #return running
     elif option == "4":
         print("Okay, let's view your recipes!")
-        running = False
-        print(running)
+        running.make_False()
+        print(running.get_running())
         #return running
     elif option == "5":
         print("Okay, let's setup a grocery list!")
-        running = False
-        print(running)
+        running.make_False()
+        print(running.get_running())
         #return running
     elif option == "6":
         print("Okay, let's declare a recipe your favorite!")
-        running = False
+        running.make_False()
         print(running)
         #return running
     elif option == "7":
         print("Okay, let's print a recipe!")
-        running = False
-        print(running)
+        running.make_False()
+        print(running.get_running())
         #return running
     elif option == "8":
         print("Okay, let's print a grocery list!")
-        running = False
-        print(running)
+        running.make_False()
+        print(running.get_running())
         #return running
     else:
         print(f"Sorry {user}, that option does not exist.")
-        running = False
-        print(running)
+        running.make_False()
+        print(running.get_running())
         #return running
 
 def new_recipe(recipe_list):
@@ -102,16 +118,16 @@ def new_recipe(recipe_list):
 
 recipe_list = [] #list to hold recipes entered sequentially
 
-running = True #variable that determines when to exit application
+running = ProgramEngine()
 main_menu()
 user = get_user_name()
 
-while(running):
+while(running.get_running()):
     recipe_menu()
     option = make_choice()
-    print(running)
+    print(running.get_running())
     #running =
     recipe_menu_choice(option, recipe_list, running)
-    print(running)
+    print(running.get_running())
 print("Goodbye!")
 exit(1)
