@@ -21,6 +21,7 @@
 # from sys import argv # I don't know if i'll need to take in command-line arguments at some point
 import sys #import used for exit() function
 
+#Objective of class is to manage a while loop and have functions defined later be able to modify whether or not the loop should continue or end immediately
 class ProgramEngine():
     #constructor function. Set member variable running to True
     def __init__(self):
