@@ -68,6 +68,14 @@ def recipe_menu():
     print("8. Print grocery list.")
     print("0. Exit.")
 
+#Function to take the recipes from the main list and save the elements into a text file to access later
+def save_recipe(recipe_list):
+    filename = open("recipe.txt", "w")
+    for element in recipe_list:
+        filename.write(element)
+    filename.close()
+
+#Function used to ask user which recipe he/she wants to modify and to make the appropriate actions thereafter
 def recipe_edit(recipe_list):
     print(recipe_list)
     print("Which would you like to modify?")
@@ -89,7 +97,7 @@ def recipe_menu_choice(option, recipe_list, running):
         new_recipe(recipe_list)
     elif option == "2":
         print("Okay, let's save your account!")
-        running.make_False()
+        save_recipe(recipe_list)
     elif option == "3":
         print("Okay, let's edit a recipe!")
         recipe_edit(recipe_list)
