@@ -59,7 +59,7 @@ def make_choice():
 def recipe_menu():
     print("What would you like to do?")
     print("1. Enter recipe.")
-    print("2. Save account.")
+    print("2. Account.")
     print("3. Edit recipe.")
     print("4. View recipes.")
     print("5. Setup grocery list.")
@@ -71,8 +71,19 @@ def recipe_menu():
 #Function to take the recipes from the main list and save the elements into a text file to access later
 def save_recipe(recipe_list):
     filename = open("recipe.txt", "w")
+    #The below code has been suggested online to just use write() since I want to add newlines or any delimiter. It is currently confusing to me to figure out how to delimit writelines(). I think I should just learn by coding right now and revisit later
+    #filename.writelines(recipe_list)
     for element in recipe_list:
-        filename.write(element)
+        filename.write(element + '\n')
+    filename.close()
+
+#Function to take recipes from text file and load them into the main list of the script "recipe_list"
+def load_recipe(recipe_list):
+    filename = open("recipe.txt", "r")
+    #recipe_list = filename.readlines() #Returns a new list of each line as a string, but I want to append to the current list "recipe_list", and not use a new list
+    #iterate file line by line and append the line to the list while removing newline character used as delimiter
+    for recipe in filename:
+        recipe_list.append(recipe.strip()) #remove newline character from being added as a character in list element strings
     filename.close()
 
 #Function used to ask user which recipe he/she wants to modify and to make the appropriate actions thereafter
@@ -96,8 +107,19 @@ def recipe_menu_choice(option, recipe_list, running):
         print("Okay, let's enter a recipe!")
         new_recipe(recipe_list)
     elif option == "2":
-        print("Okay, let's save your account!")
-        save_recipe(recipe_list)
+        #TODO needs work on load being used twice, it'll continue to append to list, perhaps emptying or deleting list, or creating a new list would be best. A self.x_list member variable may solve that
+        print("Okay, let's manage your account!")
+        print("\nWhat would you like to do?")
+        print("1. Save.")
+        print("2. Load.")
+        choice = make_choice()
+        if choice == "1":
+            save_recipe(recipe_list)
+        elif choice == "2":
+            load_recipe(recipe_list)
+        else:
+            print(f"Sorry {user}, that option does not exist.")
+            running.make_False()
     elif option == "3":
         print("Okay, let's edit a recipe!")
         recipe_edit(recipe_list)
