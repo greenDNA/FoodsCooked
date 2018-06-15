@@ -43,6 +43,48 @@ class ProgramStatus():
     def set_running(self, value):
         self.running = value
 
+class Recipe():
+
+    def __init__(self, name):
+        self.recipe_name = name
+        self.ingredients_list = []
+        self.steps_list = []
+
+        print("Recipe object created.")
+
+    def get_recipe_name(self):
+        return self.recipe_name
+
+    def get_ingredients_list(self):
+        return self.ingredients_list
+
+    def get_steps_list(self):
+        return self.steps_list
+
+    #Function designed to store a proper recipe object
+    def store_recipe(self, recipe_list):
+        #TODO add variable "recipe_name"
+        next_item = ''
+        ingredient_count = 0
+        step_count = 0
+        print(f"What ingredients do you need for your {self.get_recipe_name()}?")
+        #TODO learn how to use while loop and input statement, is it flush to get value or from input buffer? I use input(), but don't store it into a variable, so where does it go? C++ and Java have ways to access that "floating" stdin input. #        while input("Any others? 'N' to stop") != 'n'.lower():
+        #loop infinitely until user chooses to stop
+        while next_item != 'n'.lower():
+            next_item = input("Any others? 'N' to stop.\n> ")
+            self.ingredients_list.append(next_item)
+            ingredient_count += 1
+            print(ingredient_count)
+        next_item = ''
+        print(f"What steps do you need to follow to make this {self.get_recipe_name()}?")
+        while next_item != 'n'.lower():
+            next_item = input("Any others? 'N' to stop.\n> ")
+            self.steps_list.append(next_item)
+            step_count += 1
+            print(step_count)
+        #TODO Anything else? Append. Anything else? Append.
+        recipe_list.append(self)
+
 #Message printed when application begins
 def main_menu():
     print("Hello! Thank you for taking your cooking serious, I am excited to help you track all of your progress as a chef!")
@@ -67,6 +109,28 @@ def recipe_menu():
     print("7. Print a recipe.")
     print("8. Print grocery list.")
     print("0. Exit.")
+
+def new_recipe(recipe_list):
+    print("What recipe will you be adding today?")
+    #TODO while editing this get the recipe name then consider adding in the rest of Recipe.store_recipe() in this function
+    name = input("> ")
+    recipe_list.append(name)
+    print(recipe_list)
+    print("\nIs what your list currently looks like.")
+    print("-"*10)
+    recipe = Recipe(name)
+    test_list = []
+    recipe.store_recipe(test_list)
+    for test in test_list:
+        print(test.get_recipe_name() + "'s recipe is as follows:'")
+        print("Ingredients")
+        for ingredient in test.get_ingredients_list():
+            print("> " + ingredient)
+        print("Steps")
+        for step in test.get_steps_list():
+            print("> " + step)
+        print("Recipe complete.")
+
 
 #Function to take the recipes from the main list and save the elements into a text file to access later
 def save_recipe(recipe_list):
@@ -143,12 +207,6 @@ def recipe_menu_choice(option, recipe_list, running):
     else:
         print(f"Sorry {user}, that option does not exist.")
         running.make_False()
-
-def new_recipe(recipe_list):
-    print("What recipe will you be adding today?")
-    recipe_list.append(input("> "))
-    print(recipe_list)
-    print("\nIs what your list currently looks like.")
 
 #Script begins
 
