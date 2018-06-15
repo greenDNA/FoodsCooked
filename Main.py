@@ -43,8 +43,10 @@ class ProgramStatus():
     def set_running(self, value):
         self.running = value
 
+#Class to house all of my recipe related functionality
 class Recipe():
 
+    #Simple constructor
     def __init__(self, name):
         self.recipe_name = name
         self.ingredients_list = []
@@ -52,12 +54,15 @@ class Recipe():
 
         print("Recipe object created.")
 
+    #Getter function for recipe name
     def get_recipe_name(self):
         return self.recipe_name
 
+    #Getter function for ingredients list
     def get_ingredients_list(self):
         return self.ingredients_list
 
+    #Getter function for steps list
     def get_steps_list(self):
         return self.steps_list
 
@@ -110,6 +115,8 @@ def recipe_menu():
     print("8. Print grocery list.")
     print("0. Exit.")
 
+#Function called when user is to add a new recipe into his or her account.
+#Currently undergoing changes as Recipe() class is implemented
 def new_recipe(recipe_list):
     print("What recipe will you be adding today?")
     #TODO while editing this get the recipe name then consider adding in the rest of Recipe.store_recipe() in this function
