@@ -146,7 +146,7 @@ def save_recipe(recipe_list):
     test_list = []
     recipe.store_recipe(test_list)
     #end copy
-    filename = open("recipe_class.txt", "w")
+    filename = open("recipe_class.txt", "w")#edited name from "recipe.txt"
     #The below code has been suggested online to just use write() since I want to add newlines or any delimiter. It is currently confusing to me to figure out how to delimit writelines(). I think I should just learn by coding right now and revisit later
     #filename.writelines(recipe_list)
     for test in test_list:
@@ -208,15 +208,21 @@ def recipe_menu_choice(option, recipe_list, running):
         print(recipe_list)
     elif option == "5":
         print("Okay, let's setup a grocery list!")
+        #How many of each ingredient do you need in the recipe
+        #How many ingredients do you have
         running.make_False()
     elif option == "6":
         print("Okay, let's declare a recipe your favorite!")
+        #set a flag or option for a recipe, member variable maybe and have that declare it as favorite
         running.make_False()
     elif option == "7":
         print("Okay, let's print a recipe!")
+        #setup connection to a printer device and print one or more recipes
         running.make_False()
     elif option == "8":
         print("Okay, let's print a grocery list!")
+        #draft a grocery list and print the necessary ingredients you need
+        #maybe add an option for saving/loading inventory of ingredients already owned. Add and subtract those numbers with the recipe requirements so you know what you need and do not need to get. I dunno if I want to add a cooking simulator add-on eventually to this project. But if I do be able to handle: Not enough ingredients scenario. Maybe this project leads to a cooking game? RPG?
         running.make_False()
     elif option == "9":
         recipe_menu()
