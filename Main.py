@@ -141,11 +141,20 @@ def new_recipe(recipe_list):
 
 #Function to take the recipes from the main list and save the elements into a text file to access later
 def save_recipe(recipe_list):
-    filename = open("recipe.txt", "w")
+    #copy code from  new_recipe() temporarily
+    recipe = Recipe("Taco")
+    test_list = []
+    recipe.store_recipe(test_list)
+    #end copy
+    filename = open("recipe_class.txt", "w")
     #The below code has been suggested online to just use write() since I want to add newlines or any delimiter. It is currently confusing to me to figure out how to delimit writelines(). I think I should just learn by coding right now and revisit later
     #filename.writelines(recipe_list)
-    for element in recipe_list:
-        filename.write(element + '\n')
+    for test in test_list:
+        filename.write(test.get_recipe_name() + '|')
+        for ingredient in test.get_ingredients_list():
+            filename.write(ingredient + '|')
+        for step in test.get_steps_list():
+            filename.write(step + '|')
     filename.close()
 
 #Function to take recipes from text file and load them into the main list of the script "recipe_list"
