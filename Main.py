@@ -51,6 +51,7 @@ class Recipe():
         self.recipe_name = name
         self.ingredients_list = []
         self.steps_list = []
+        self.ingredient_amount = []
 
         print("Recipe object created.")
 
@@ -66,6 +67,9 @@ class Recipe():
     def get_steps_list(self):
         return self.steps_list
 
+    def get_ingredient_amount(self):
+        return self.ingredient_amount
+
     #Function designed to store a proper recipe object
     def store_recipe(self, recipe_list):
         #TODO add variable "recipe_name"
@@ -77,13 +81,20 @@ class Recipe():
         #loop infinitely until user chooses to stop
         while next_item != 'n'.lower():
             next_item = input("Any others? 'N' to stop.\n> ")
+            if(next_item == 'n'.lower()):
+                break
             self.ingredients_list.append(next_item)
+            self.ingredient_amount.append(input(f"How many of {next_item}?\n> "))
+            #learn to increment using loops to not need the += statement below
             ingredient_count += 1
             print(ingredient_count)
+            #Closing with the comment above----------^^^^^
         next_item = ''
         print(f"What steps do you need to follow to make this {self.get_recipe_name()}?")
         while next_item != 'n'.lower():
             next_item = input("Any others? 'N' to stop.\n> ")
+            if(next_item == 'n'.lower()):
+                break
             self.steps_list.append(next_item)
             step_count += 1
             print(step_count)
@@ -131,8 +142,9 @@ def new_recipe(recipe_list):
     for test in test_list:
         print(test.get_recipe_name() + "'s recipe is as follows:'")
         print("Ingredients")
-        for ingredient in test.get_ingredients_list():
-            print("> " + ingredient)
+        #the zip() function is built into python3 and maps xi and yi of two lists together
+        for amount, ingredient in zip(test.get_ingredient_amount(), test.get_ingredients_list()):
+            print("> " + amount + " " + ingredient)
         print("Steps")
         for step in test.get_steps_list():
             print("> " + step)
@@ -210,6 +222,7 @@ def recipe_menu_choice(option, recipe_list, running):
         print("Okay, let's setup a grocery list!")
         #How many of each ingredient do you need in the recipe
         #How many ingredients do you have
+        #Compare 'pantry' with recipe and what is missing you need
         running.make_False()
     elif option == "6":
         print("Okay, let's declare a recipe your favorite!")
