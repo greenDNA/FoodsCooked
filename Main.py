@@ -101,6 +101,12 @@ class Recipe():
         #TODO Anything else? Append. Anything else? Append.
         recipe_list.append(self)
 
+    #Function to print the contents of a recipe object to the terminal
+    def view(self):
+        print(self.get_recipe_name())
+        print(self.get_ingredients_list())
+        print(self.get_steps_list())
+
 #Message printed when application begins
 def main_menu():
     print("Hello! Thank you for taking your cooking serious, I am excited to help you track all of your progress as a chef!")
@@ -132,14 +138,16 @@ def new_recipe(recipe_list):
     print("What recipe will you be adding today?")
     #TODO while editing this get the recipe name then consider adding in the rest of Recipe.store_recipe() in this function
     name = input("> ")
+    """
     recipe_list.append(name)
     print(recipe_list)
     print("\nIs what your list currently looks like.")
     print("-"*10)
+    """
     recipe = Recipe(name)
-    test_list = []
-    recipe.store_recipe(test_list)
-    for test in test_list:
+    #test_list = [] #testing if new implementation of store_recipe() function worked, and it does
+    recipe.store_recipe(recipe_list)
+    for test in recipe_list:
         print(test.get_recipe_name() + "'s recipe is as follows:'")
         print("Ingredients")
         #the zip() function is built into python3 and maps xi and yi of two lists together
@@ -154,24 +162,28 @@ def new_recipe(recipe_list):
 #Function to take the recipes from the main list and save the elements into a text file to access later
 def save_recipe(recipe_list):
     #copy code from  new_recipe() temporarily
-    recipe = Recipe("Taco")
-    test_list = []
-    recipe.store_recipe(test_list)
+    #recipe = Recipe("Taco")
+    #test_list = []
+    #recipe.store_recipe(test_list)
     #end copy
     filename = open("recipe_class.txt", "w")#edited name from "recipe.txt"
     #The below code has been suggested online to just use write() since I want to add newlines or any delimiter. It is currently confusing to me to figure out how to delimit writelines(). I think I should just learn by coding right now and revisit later
     #filename.writelines(recipe_list)
-    for test in test_list:
+    for test in recipe_list:
         filename.write(test.get_recipe_name() + '|')
         for ingredient in test.get_ingredients_list():
             filename.write(ingredient + '|')
+        filename.write('~|') #Need to add a second delimiter to file so I can manipulate reading from files easier on one line. Thinking of using a name over symbols to delimit
         for step in test.get_steps_list():
             filename.write(step + '|')
+        filename.write('~|') #End of steps as above, a second delimter
     filename.close()
 
 #Function to take recipes from text file and load them into the main list of the script "recipe_list"
 def load_recipe(recipe_list):
+    test_list = []
     filename = open("recipe.txt", "r")
+
     #recipe_list = filename.readlines() #Returns a new list of each line as a string, but I want to append to the current list "recipe_list", and not use a new list
     #iterate file line by line and append the line to the list while removing newline character used as delimiter
     for recipe in filename:
@@ -216,8 +228,9 @@ def recipe_menu_choice(option, recipe_list, running):
         print("Okay, let's edit a recipe!")
         recipe_edit(recipe_list)
     elif option == "4":
-        print("Okay, let's view your recipes!")
-        print(recipe_list)
+        print("Okay, let's view your recipes!\n")
+        for recipe in recipe_list:
+            recipe.view()
     elif option == "5":
         print("Okay, let's setup a grocery list!")
         #How many of each ingredient do you need in the recipe

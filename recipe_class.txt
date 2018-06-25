@@ -1,1 +1,1 @@
-Taco|Beef|Cheese|n|Cook meat|Add to shell|Add cheese|n|
+Cereal|Milk|Cereal|~|Pour cereal|Pour milk|~|
