@@ -175,7 +175,7 @@ def save_recipe(recipe_list):
         filename.write('~|') #Need to add a second delimiter to file so I can manipulate reading from files easier on one line. Thinking of using a name over symbols to delimit
         for step in recipe.get_steps_list():
             filename.write(step + '|')
-        filename.write('~|') #End of steps as above, a second delimter
+        filename.write('~|\n') #End of steps as above, a second delimter
     filename.close()
 
 #Function to take recipes from text file and load them into the main list of the script "recipe_list"
