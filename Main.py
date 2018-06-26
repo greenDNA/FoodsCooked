@@ -107,6 +107,11 @@ class Recipe():
         print(self.get_ingredients_list())
         print(self.get_steps_list())
 
+    #Function to take string from a file holding Recipe objects and break them down into meaningful pieces of data
+    def file_recipe_recover(self):
+        pass
+
+
 #Message printed when application begins
 def main_menu():
     print("Hello! Thank you for taking your cooking serious, I am excited to help you track all of your progress as a chef!")
@@ -161,42 +166,64 @@ def new_recipe(recipe_list):
 
 #Function to take the recipes from the main list and save the elements into a text file to access later
 def save_recipe(recipe_list):
-    #copy code from  new_recipe() temporarily
-    #recipe = Recipe("Taco")
-    #test_list = []
-    #recipe.store_recipe(test_list)
-    #end copy
     filename = open("recipe_class.txt", "w")#edited name from "recipe.txt"
-    #The below code has been suggested online to just use write() since I want to add newlines or any delimiter. It is currently confusing to me to figure out how to delimit writelines(). I think I should just learn by coding right now and revisit later
-    #filename.writelines(recipe_list)
-    for test in recipe_list:
-        filename.write(test.get_recipe_name() + '|')
-        for ingredient in test.get_ingredients_list():
+    for recipe in recipe_list:
+        filename.write(recipe.get_recipe_name() + '|')
+        filename.write('~|') #Add tilde for uniformity
+        for ingredient in recipe.get_ingredients_list():
             filename.write(ingredient + '|')
         filename.write('~|') #Need to add a second delimiter to file so I can manipulate reading from files easier on one line. Thinking of using a name over symbols to delimit
-        for step in test.get_steps_list():
+        for step in recipe.get_steps_list():
             filename.write(step + '|')
         filename.write('~|') #End of steps as above, a second delimter
     filename.close()
 
 #Function to take recipes from text file and load them into the main list of the script "recipe_list"
+#Recipe objects are stored as a line of text, delimited by pipes(|) and tildes(~)
 def load_recipe(recipe_list):
+    #As I am overhauling this function, I am thinking of taking inspiration from the store_recipe() function
     test_list = []
-    filename = open("recipe.txt", "r")
-
-    #recipe_list = filename.readlines() #Returns a new list of each line as a string, but I want to append to the current list "recipe_list", and not use a new list
-    #iterate file line by line and append the line to the list while removing newline character used as delimiter
-    for recipe in filename:
-        recipe_list.append(recipe.strip()) #remove newline character from being added as a character in list element strings
+    next = ''
+    #filename = open("recipe.txt", "r")
+    filename = open("recipe_class.txt", "r")
+    for line in filename:
+        test_list = line.strip().split('|')
+        #reverse list to use pop to easily extract data
+        test_list.reverse()
+        #Extract name of recipe: Loop by taking the reversed List and popping the last element(first element of actual List) and filling out the Recipe object with the acquired data
+        while True:
+            next = test_list.pop()
+            if next == '~':
+                break
+            else:
+                recipe = Recipe(next)
+        #Extract ingredients: Loop by taking the reversed List and popping the last element(first element of actual List) and filling out the Recipe object with the acquired data
+        while True:
+            next = test_list.pop()
+            if next == '~':
+                break
+            else:
+                recipe.ingredients_list.append(next)
+        #Extract steps: Loop by taking the reversed List and popping the last element(first element of actual List) and filling out the Recipe object with the acquired data
+        while True:
+            next = test_list.pop()
+            if next == '~':
+                break
+            else:
+                recipe.steps_list.append(next)
+        #Add new recipe object to main recipe_list, list
+        recipe_list.append(recipe)
     filename.close()
 
 #Function used to ask user which recipe he/she wants to modify and to make the appropriate actions thereafter
 def recipe_edit(recipe_list):
-    print(recipe_list)
+    #print out all recipes currently in the recipe_list as a reminder
+    for recipe in recipe_list:
+        print(recipe.recipe_name)
     print("Which would you like to modify?")
     #create index for recipe_list that will enumerate, and var recipe that will hold the value of recipe_list sequentially
     for index, recipe in enumerate(recipe_list):
-        print(f"{recipe}? Enter Y if yes.")
+        print(f"{recipe.recipe_name}? Enter Y if yes.")
         #if upper or lowercase y is entered, default to lowercase and test for a match meaning 'yes'
         if input().lower() == "y":
             print("Enter the new recipe: ", end ="")

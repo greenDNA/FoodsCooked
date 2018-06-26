@@ -1,1 +1,1 @@
-Cereal|Milk|Cereal|~|Pour cereal|Pour milk|~|
+Cereal|~|Milk|Cereal|~|Pour cereal|Pour milk|~|
