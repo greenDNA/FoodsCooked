@@ -1,2 +1,3 @@
 Cereal|~|Milk|Cereal|~|Pour cereal|Pour milk|
 Sandwich|~|Meat|Lettuce|Cheese|~|Layer ingredients|Put bread on both sides|
+PBJ|~|Bread|Jelly|Peanut Butter|~|Lay two pieces of bread|Spread jelly on one|Spread peanute butter on the other|Place both sides together with spreads touching|

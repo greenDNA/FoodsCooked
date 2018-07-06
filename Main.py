@@ -200,16 +200,12 @@ def load_recipe(recipe_list):
         #TODO have the instructions be cleaned up and coded neater alike the example below
         recipe = Recipe() #Creation of a new Recipe object
         final_list = [] #Represents data parsed into a completed list that can be iterated and put into variables
-        counter = 0 #Controls which part of the recipe object will be modified/appended to
+        counter = 0 #Controls which part of the recipe object will be modified/appended to; also resets to 0 on each new line read in from file
         file_list = line.strip('\n').split('~') #break the line into an array delimited by '~' characters as the formatting
-        #print("file_list: ", end='')
-        #print(file_list)
         for split_list in file_list:
             final_list.append(split_list.strip('|').split('|'))
-        #print("final_list: ", end="")
-        #print(final_list)
-        for final_iter in final_list:
-            for element in final_iter:
+        for final_iter in final_list:#List of Lists to be iterated
+            for element in final_iter:#List to be iterated, and we know what elements we are using by the 'counter' variable. Better solution somewhere to improve this?
                 if(counter == 0):
                     recipe.recipe_name = element
                 elif(counter == 1):
@@ -221,44 +217,6 @@ def load_recipe(recipe_list):
         #Add new recipe object to main recipe_list, list
         recipe_list.append(recipe)
     filename.close()
-
-""" print("element: ", end='')
-            print(split_list.strip('|').split('|'))
-            if(counter == 0):
-                recipe.recipe_name = element
-            if(counter == 1):
-
-                recipe.ingredients_list.append(element)
-            counter++
-            """
-"""
-        test_list = line.strip().split('|')
-        #reverse list to use pop to easily extract data
-        test_list.reverse()
-        #Extract name of recipe: Loop by taking the reversed List and popping the last element(first element of actual List) and filling out the Recipe object with the acquired data
-        while True:
-            next = test_list.pop()
-            if next == '~':
-                break
-            else:
-                recipe = Recipe(next) #contains name of recipe
-        #Extract ingredients: Loop by taking the reversed List and popping the last element(first element of actual List) and filling out the Recipe object with the acquired data
-        while True:
-            next = test_list.pop()
-            if next == '~':
-                break
-            else:
-                recipe.ingredients_list.append(next) #contains ingredient names in sequence
-        #Extract steps: Loop by taking the reversed List and popping the last element(first element of actual List) and filling out the Recipe object with the acquired data
-        while True:
-            next = test_list.pop()
-            if next == '~':
-                break
-            else:
-                recipe.steps_list.append(next) #contains steps in sequence
-"""
-        #recipe_list.append(recipe)
-        #filename.close()
 
 #Function used to ask user which recipe he/she wants to modify and to make the appropriate actions thereafter
 def recipe_edit(recipe_list):
