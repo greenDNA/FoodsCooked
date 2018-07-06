@@ -20,6 +20,7 @@
 
 # from sys import argv # I don't know if i'll need to take in command-line arguments at some point
 import sys #import used for exit() function
+import os #import used for os.startfile() that we use to print
 
 #Objective of class is to manage a while loop and have functions defined later be able to modify whether or not the loop should continue or end immediately
 class ProgramStatus():
@@ -159,6 +160,7 @@ def new_recipe(recipe_list):
     recipe = Recipe(name)
     #test_list = [] #testing if new implementation of store_recipe() function worked, and it does
     recipe.store_recipe(recipe_list)
+    #Code below this comment unnecessary
     for test in recipe_list:
         print(test.get_recipe_name() + "'s recipe is as follows:'")
         print("Ingredients")
@@ -220,6 +222,7 @@ def load_recipe(recipe_list):
 
 #Function used to ask user which recipe he/she wants to modify and to make the appropriate actions thereafter
 def recipe_edit(recipe_list):
+    #TODO finish this function
     #print out all recipes currently in the recipe_list as a reminder
     for recipe in recipe_list:
         print(recipe.recipe_name)
@@ -274,6 +277,7 @@ def recipe_menu_choice(option, recipe_list, running):
     elif option == "7":
         print("Okay, let's print a recipe!")
         #setup connection to a printer device and print one or more recipes
+        #os.startfile("recipe_class.txt", "print")
         running.make_False()
     elif option == "8":
         print("Okay, let's print a grocery list!")
