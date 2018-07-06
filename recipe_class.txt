@@ -1,2 +1,2 @@
-Cereal|~|Milk|Cereal|~|Pour cereal|Pour milk|~|
-Sandwich|~|Meat|Lettuce|Cheese|~|Layer ingredients|Put bread on both sides|~|
+Cereal|~|Milk|Cereal|~|Pour cereal|Pour milk|
+Sandwich|~|Meat|Lettuce|Cheese|~|Layer ingredients|Put bread on both sides|

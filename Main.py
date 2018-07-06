@@ -46,8 +46,15 @@ class ProgramStatus():
 #Class to house all of my recipe related functionality
 class Recipe():
 
-    #Simple constructor
-    def __init__(self, name):
+    #Simple constructors
+    """def __init__(self):
+        self.recipe_name = ""
+        self.ingredients_list = []
+        self.steps_list = []
+        self.ingredient_amount = []
+    """
+
+    def __init__(self, name=""):
         self.recipe_name = name
         self.ingredients_list = []
         self.steps_list = []
@@ -175,18 +182,56 @@ def save_recipe(recipe_list):
         filename.write('~|') #Need to add a second delimiter to file so I can manipulate reading from files easier on one line. Thinking of using a name over symbols to delimit
         for step in recipe.get_steps_list():
             filename.write(step + '|')
-        filename.write('~|\n') #End of steps as above, a second delimter
+        filename.write('\n') #End of steps as above, a second delimter. Add newline after formatting
     filename.close()
 
 #Function to take recipes from text file and load them into the main list of the script "recipe_list"
 #Recipe objects are stored as a line of text, delimited by pipes(|) and tildes(~)
 def load_recipe(recipe_list):
     #As I am overhauling this function, I am thinking of taking inspiration from the store_recipe() function
-    test_list = []
-    next = ''
-    #filename = open("recipe.txt", "r")
+    file_list = []
     filename = open("recipe_class.txt", "r")
+
+    #Example formatting
+    #NAME|~|INGREDIENT|INGREDIENT|INGREDIENT|INGREDIENT|~|STEP|STEP|STEP|STEP|STEP|STEP|~|
+
+    #line is a string read in from the recipe_class.txt file
     for line in filename:
+        #TODO have the instructions be cleaned up and coded neater alike the example below
+        recipe = Recipe() #Creation of a new Recipe object
+        final_list = [] #Represents data parsed into a completed list that can be iterated and put into variables
+        counter = 0 #Controls which part of the recipe object will be modified/appended to
+        file_list = line.strip('\n').split('~') #break the line into an array delimited by '~' characters as the formatting
+        #print("file_list: ", end='')
+        #print(file_list)
+        for split_list in file_list:
+            final_list.append(split_list.strip('|').split('|'))
+        #print("final_list: ", end="")
+        #print(final_list)
+        for final_iter in final_list:
+            for element in final_iter:
+                if(counter == 0):
+                    recipe.recipe_name = element
+                elif(counter == 1):
+                    recipe.ingredients_list.append(element)
+                else:
+                    recipe.steps_list.append(element)
+            counter += 1
+        recipe.view()
+        #Add new recipe object to main recipe_list, list
+        recipe_list.append(recipe)
+    filename.close()
+
+""" print("element: ", end='')
+            print(split_list.strip('|').split('|'))
+            if(counter == 0):
+                recipe.recipe_name = element
+            if(counter == 1):
+
+                recipe.ingredients_list.append(element)
+            counter++
+            """
+"""
         test_list = line.strip().split('|')
         #reverse list to use pop to easily extract data
         test_list.reverse()
@@ -196,24 +241,24 @@ def load_recipe(recipe_list):
             if next == '~':
                 break
             else:
-                recipe = Recipe(next)
+                recipe = Recipe(next) #contains name of recipe
         #Extract ingredients: Loop by taking the reversed List and popping the last element(first element of actual List) and filling out the Recipe object with the acquired data
         while True:
             next = test_list.pop()
             if next == '~':
                 break
             else:
-                recipe.ingredients_list.append(next)
+                recipe.ingredients_list.append(next) #contains ingredient names in sequence
         #Extract steps: Loop by taking the reversed List and popping the last element(first element of actual List) and filling out the Recipe object with the acquired data
         while True:
             next = test_list.pop()
             if next == '~':
                 break
             else:
-                recipe.steps_list.append(next)
-        #Add new recipe object to main recipe_list, list
-        recipe_list.append(recipe)
-    filename.close()
+                recipe.steps_list.append(next) #contains steps in sequence
+"""
+        #recipe_list.append(recipe)
+        #filename.close()
 
 #Function used to ask user which recipe he/she wants to modify and to make the appropriate actions thereafter
 def recipe_edit(recipe_list):
@@ -229,7 +274,7 @@ def recipe_edit(recipe_list):
             print("Enter the new recipe: ", end ="")
             #take user input and replace value at current index of recipe_list to the new string the user gives
             #TODO add a safecheck, are you sure message later on
-            recipe_list[index] = input()
+            recipe_list[index].recipe_name = input("> ")
             break
 
 #Function used in tandem with recipe_menu() to logically decide what to do after recieving user input for the recipe_menu() function
