@@ -112,6 +112,7 @@ class Recipe():
     def file_recipe_recover(self):
         pass
 
+    #Function dedicated to taking a recipe and saving it to a temporary file, to then send to the operating system's printer queue. Deleting the file after submitting
     def print_recipe(self):
         tempfile = open('recipe_print.txt', 'w')
         tempfile.write('Recipe Name\n')
@@ -240,11 +241,82 @@ def recipe_edit(recipe_list):
         print(f"{recipe.recipe_name}? Enter Y if yes.")
         #if upper or lowercase y is entered, default to lowercase and test for a match meaning 'yes'
         if input().lower() == "y":
-            print("Enter the new recipe: ", end ="")
-            #take user input and replace value at current index of recipe_list to the new string the user gives
-            #TODO add a safecheck, are you sure message later on
-            recipe_list[index].recipe_name = input("> ")
+            #print recipe contents to the terminal will provide user with contents without having to go through separate menus/options
+            recipe.view()
+            print("Would you like to modify?\nEnter '1' for recipe name.\nEnter '2' for ingredients.\nEnter '3' for steps.")
+            if input() == '1':
+                print("What would you like to change the recipe name to?")
+                temp_name = input("> ")
+                print(f"Are you sure you want to change the name to: {temp_name}? Enter 'Y' for yes.")
+                if input().lower() == 'y':
+                    recipe.recipe_name = temp_name
+                    print("Name changed!")
+            elif input() == '2':
+                print("Enter '1' to change an ingredient.\nEnter '2' to add an ingredient.\nEnter '3' to remove an ingredient.")
+                if input() == '1':
+                    print(recipe.ingredients_list)
+                    print("What ingredient would you like to change?")
+                    temp_ingredient = input("> ")
+                    if temp_ingredient in recipe.ingredients_list:
+                        print(f"Modify '{temp_ingredient}' with?")
+                        modify_ingredient = input("> ")
+                        print(f"Are you sure you want to change '{temp_ingredient}' to '{modify_ingredient}'?")
+                        if input().lower == 'y':
+                            for iter, ingredient in enumerate(recipe.ingredients_list):
+                                if modify_ingredient in ingredient:
+                                    recipe.ingredients_list[iter] = modify_ingredient
+                                #recipe.ingredients_list.remove(temp_ingredient)
+                                #recipe.ingredients_list.append(modify_ingredient)
+                elif input() == '2':
+                    print("What ingredient would you like to add?")
+                    temp_ingredient = input("> ")
+                    print(f"Are you sure you want to add '{temp_ingredient}' to the ingredients?")
+                    if input().lower == 'y':
+                        recipe.ingredients_list.append(temp_ingredient)
+                        print("Added!")
+                    else:
+                        print("Okay. Nevermind.")
+                #INCOMPLETE TODO METHOD FINISH
+                elif input() == '3':
+                    print(recipe.ingredients_list)
+                    print("What ingredient would you like to remove?")
+                    temp_ingredient = input("> ")
+                    if temp_ingredient in recipe.ingredients_list:
+                        print("Are you sure you would like to remove '{temp_ingredient}'?")
+                        if input().lower == 'y':
+                            recipe.ingredients_list.remove(temp_ingredient)
+                            print("Removed!")
+                    else:
+                        print("Invalid choice. Nevermind.")
+
+                else:
+                    print("Error, invalid choice.")
+
+            elif input() == '3':
+                print("Enter '1' to change a step.\nEnter '2' to add a step.\nEnter '3' to remove a step.")
+
+
+            else:
+                print("Error, invalid choice.")
+
+
+            """if input().lower() == "y":
+                print("Enter the new name: ", end ="")
+                #take user input and replace value at current index of recipe_list to the new string the user gives
+                #TODO add a safecheck, are you sure message later on
+                recipe_list[index].recipe_name = input("> ")
+            print("Would you like to modify the ingredients? Enter Y if yes.")
+            if input().lower() == "y":
+                print("Enter '1' to change an ingredient.\nEnter '2' to add an ingredient.\nEnter '3' to remove an ingredient.")
+                for ingredient in recipe_list[index].ingredients_list:
+                    pass
+            else:
+                pass
+            print("Would you like to modify the steps?")
+            if input().lower() == "y":
+                print("Enter '1' to change a step.\nEnter '2' to add a step.\nEnter '3' to remove a step.")
             break
+            """
 
 #Function used in tandem with recipe_menu() to logically decide what to do after recieving user input for the recipe_menu() function
 def recipe_menu_choice(option, recipe_list, running):
