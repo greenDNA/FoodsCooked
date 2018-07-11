@@ -112,6 +112,21 @@ class Recipe():
     def file_recipe_recover(self):
         pass
 
+    def print_recipe(self):
+        tempfile = open('recipe_print.txt', 'w')
+        tempfile.write('Recipe Name\n')
+        tempfile.write(self.recipe_name + '\n')
+        tempfile.write('Recipe Ingredients\n')
+        for ingredient in self.ingredients_list:
+            tempfile.write(ingredient + '\n')
+        tempfile.write('Recipe Steps\n')
+        for step in self.steps_list:
+            tempfile.write(step + '\n')
+        tempfile.close()
+        os.startfile("recipe_print.txt", "print")
+        #os.remove("recipe_print.txt")
+
+
 
 #Message printed when application begins
 def main_menu():
@@ -271,7 +286,10 @@ def recipe_menu_choice(option, recipe_list, running):
         print("Okay, let's print a recipe!")
         #setup connection to a printer device and print one or more recipes
         #os.startfile("recipe_class.txt", "print")
-        running.make_False()
+        for recipe in recipe_list:
+            print(f"Would you like a printout of {recipe.recipe_name}? (Y?)")
+            if input() == 'y'.lower():
+                recipe.print_recipe()
     elif option == "8":
         print("Okay, let's print a grocery list!")
         #draft a grocery list and print the necessary ingredients you need
