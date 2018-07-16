@@ -237,6 +237,7 @@ def user_confirm():
 
 #Function used to ask user which recipe he/she wants to modify and to make the appropriate actions thereafter
 #Comprehensive function
+## TODO: Have lists coupled with a numerical value beside them(perhaps through enumerate), have numbers be a second form of user-input, develop looping in the function to perform several operations and not having to reload the function as the 'user'
 def recipe_edit(recipe_list):
     #TODO finish this function
     option_choice = None #Variable that will hold the input the user enters

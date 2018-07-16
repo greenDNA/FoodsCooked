@@ -1,0 +1,7 @@
+FoodsCooked Design
+Initiate application where it brings the user to a sign-in screen
+*Prompt for username/password or for a quick-session(import file formatted to work with Script or save the temporary session to a file once the user is done(optional))
+*Option to recover a lost account: Personalized support questions
+*Ask for new user
+*Provide username and password, and a personality security question and answer
+*Store usernames/passwords in a unique file, and security questions in another unique file
