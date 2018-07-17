@@ -5,3 +5,5 @@ Initiate application where it brings the user to a sign-in screen
 *Ask for new user
 *Provide username and password, and a personality security question and answer
 *Store usernames/passwords in a unique file, and security questions in another unique file
+
+*Use enumerate in loops to have a numerical counter variable when listing list contents in numerical order
