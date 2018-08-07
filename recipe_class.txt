@@ -1,3 +1,5 @@
 Cereal|~|Milk|Cereal|~|Pour cereal|Pour milk|
 Sandwich|~|Meat|Lettuce|Cheese|~|Layer ingredients|Put bread on both sides|
 PBJ|~|Bread|Jelly|Peanut Butter|~|Lay two pieces of bread|Spread jelly on one|Spread peanut butter on the other|Place both sides together with spreads touching|
+Fried Chicken Breast|~|Chicken Breast|Flour|Eggs|Breadcrumbs|Seasoning Marinade|Oil|~|Cut chicken breast by width into halves|Soak in marinade for 10-60 minutes|Heat frying pan with oil covering the entire face; enough to have height in the pan|Dip chicken breast in flour, beaten eggs, then breadcrumbs|Place each chicken breast in frying pan, turning after 2-3 minutes|
+Onion Garlic Chicken|~|Chicken Breast|Onion Powder|Garlic Powder|Seasoning Salt|Butter|Frying Pan|~|Lay chicken breast on cutting board and season both sides with a coat of onion, garlic, and seasoning salt|Melt about 3 tablespoons of butter in frying pan|Add chicken to melted butter in frying pan and cook both sides for 10-15 minutes on medium heat|Slice chicken and serve|
