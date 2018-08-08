@@ -138,11 +138,14 @@ def recipe_edit(recipe_list):
     ingredient_choice = None #Variable for holding the ingredient input the user enters
     step_choice = None #Variable that follows suit like 'ingredient_choice' variable
     #print out all recipes currently in the recipe_list as a reminder
-    for recipe in recipe_list:
-        print(recipe.recipe_name)
+    #for recipe in recipe_list:
+    for index in range(len(recipe_list)):
+        #TODO Modify statement to be more clean
+        print(f"({index}) - {recipe_list[index].recipe_name}")
     print("Which would you like to modify?")
     #create index for recipe_list that will enumerate, and var recipe that will hold the value of recipe_list sequentially
     for index, recipe in enumerate(recipe_list):
+        #TODO Revamp this code to accept an integer or string to select recipe to have modified
         print(f"{recipe.recipe_name}? Enter Y if yes.")
         #if upper or lowercase y is entered, default to lowercase and test for a match meaning 'yes'
         if user_confirm():
