@@ -16,6 +16,8 @@
  *
  */
 
+I got an error about Attribute when importing Main into functionality, as functionality is already imported into Main. Upon removing the Main import from functionality and moving Functions to functionality.py solved the problem. I just don't understand why python couldn't find functions defined in functionality.py
+
 """
 
 # from sys import argv # I don't know if i'll need to take in command-line arguments at some point
@@ -33,9 +35,6 @@ def main_menu():
 def get_user_name():
     return input("What might your name be?\n> ")
 
-#Generic function used to return user input with a prompter already configured
-def make_choice():
-    return input("Please enter the number for the option you want.\n> ")
 
 #Function that prints to terminal all possible actions of the script, not all function, and possibly more added in future, or sub categories/menus used instead.
 def recipe_menu():
@@ -125,141 +124,62 @@ def load_recipe(recipe_list):
         recipe_list.append(recipe)
     filename.close()
 
-#Function used as a boolean value to refer to the user agreeing to some statement
-def user_confirm():
-    return input().lower() == 'y'
-
-
 #Function used to ask user which recipe he/she wants to modify and to make the appropriate actions thereafter
 #Comprehensive function
 ## TODO: Have lists coupled with a numerical value beside them(perhaps through enumerate), have numbers be a second form of user-input, develop looping in the function to perform several operations and not having to reload the function as the 'user'
 def recipe_edit(recipe_list):
     option_choice = None #Variable that will hold the input the user enters
-    ingredient_choice = None #Variable for holding the ingredient input the user enters
-    step_choice = None #Variable that follows suit like 'ingredient_choice' variable
-    #print out all recipes currently in the recipe_list as a reminder
-    #for recipe in recipe_list:
-    for index in range(len(recipe_list)):
-        #TODO Modify statement to be more clean
-        print(f"({index}) - {recipe_list[index].recipe_name}")
-    print("Which would you like to modify?")
-    #create index for recipe_list that will enumerate, and var recipe that will hold the value of recipe_list sequentially
-    for index, recipe in enumerate(recipe_list):
-        #TODO Revamp this code to accept an integer or string to select recipe to have modified
-        print(f"{recipe.recipe_name}? Enter Y if yes.")
-        #if upper or lowercase y is entered, default to lowercase and test for a match meaning 'yes'
-        if user_confirm():
-            while(True): #As long as running variable is true, loop
-                #print recipe contents to the terminal will provide user with contents without having to go through separate menus/options
-                recipe.view()
-                print("What would you like to modify?\nEnter '1' for recipe name.\nEnter '2' for ingredients.\nEnter '3' for steps.\nAnything else to exit.")
-                option_choice = make_choice()
-                if option_choice == '1':
-                    print("What would you like to change the recipe name to?")
-                    temp_name = input("> ")
-                    print(f"Are you sure you want to change the name to: {temp_name}? Enter 'Y' for yes.")
-                    if user_confirm():
-                        recipe.recipe_name = temp_name
-                        print("Name changed!")
-                elif option_choice == '2':
-                    while(True):
-                        print("Enter '1' to change an ingredient.\nEnter '2' to add an ingredient.\nEnter '3' to remove an ingredient.")
-                        ingredient_choice = make_choice()
-                        if ingredient_choice == '1':
-                            print(recipe.ingredients_list)
-                            print("What ingredient would you like to change?")
-                            temp_ingredient = input("> ")
-                            if temp_ingredient in recipe.ingredients_list:
-                                print(f"Modify '{temp_ingredient}' with?")
-                                modify_ingredient = input("> ")
-                                print(f"Are you sure you want to change '{temp_ingredient}' to '{modify_ingredient}'? Y?")
-                                if user_confirm():
-                                    for iter, ingredient in enumerate(recipe.ingredients_list):
-                                        if temp_ingredient in ingredient:
-                                            print("Changed!")
-                                            recipe.ingredients_list[iter] = modify_ingredient
-                                else:
-                                    print("User declined to change the ingredient.")
-                            else:
-                                print(f"Error, '{temp_ingredient}' not in recipe.")
-                        elif ingredient_choice == '2':
-                            print("What ingredient would you like to add?")
-                            temp_ingredient = input("> ")
-                            print(f"Are you sure you want to add '{temp_ingredient}' to the ingredients?")
-                            if user_confirm():
-                                recipe.ingredients_list.append(temp_ingredient)
-                                print("Added!")
-                            else:
-                                print("Okay. Nevermind.")
-                        elif ingredient_choice == '3':
-                            print(recipe.ingredients_list)
-                            print("What ingredient would you like to remove?")
-                            temp_ingredient = input("> ")
-                            if temp_ingredient in recipe.ingredients_list:
-                                print(f"Are you sure you would like to remove '{temp_ingredient}'? Y?")
-                                if user_confirm():
-                                    recipe.ingredients_list.remove(temp_ingredient)
-                                    print("Removed!")
-                            else:
-                                print("Invalid choice. Nevermind.")
-                        else:
-                            print("Error, invalid choice.")
-                            print("Returning from loop.")
-                            break
+    #ingredient_choice = None #Variable for holding the ingredient input the user enters
+    #step_choice = None #Variable that follows suit like 'ingredient_choice' variable
 
-                elif option_choice == '3':
-                    while(True):
-                        print("Enter '1' to change a step.\nEnter '2' to add a step.\nEnter '3' to remove a step.")
-                        step_choice = make_choice()
-                        if step_choice == '1':
-                            print(recipe.steps_list)
-                            print("What step would you like to change?")
-                            temp_step = input("> ")
-                            if temp_step in recipe.steps_list:
-                                print(f"Modify '{temp_step}' with?")
-                                modify_step = input("> ")
-                                print(f"Are you sure you want to change '{temp_step}' to '{modify_step}'? Y?")
-                                if user_confirm():
-                                    for iter, step in enumerate(recipe.steps_list):
-                                        if temp_step in step:
-                                            print("Changed!")
-                                            recipe.steps_list[iter] = modify_step
-                                else:
-                                    print("User declined to change the step.")
-                            else:
-                                print(f"Error, '{temp_step}' not in recipe.")
-                        elif step_choice == '2':
-                            print("What step would you like to add?")
-                            temp_step = input("> ")
-                            print(f"Are you sure you want to add '{temp_step}' to the steps?")
-                            if user_confirm():
-                                recipe.steps_list.append(temp_step)
-                                print("Added!")
-                            else:
-                                print("Okay. Nevermind.")
-                        elif step_choice == '3':
-                            print(recipe.steps_list)
-                            print("What step would you like to remove?")
-                            temp_step = input("> ")
-                            if temp_step in recipe.steps_list:
-                                print(f"Are you sure you would like to remove '{temp_step}'? Y?")
-                                if user_confirm():
-                                    recipe.steps_list.remove(temp_step)
-                                    print("Removed!")
-                            else:
-                                print("Invalid choice. Nevermind.")
-                        else:
-                            print("Error, invalid choice.")
-                            print("Returning from loop.")
-                            break
+    #print(len(recipe_list)) #debug statement
+    while(True):
+        f.print_recipe_list_with_indices(recipe_list)
+        print("Which would you like to modify?")
+        #TODO take user input here about the index or name of the recipe to examine
+        #take user input and match it to index and/or recipe_name
+        recipe = f.choose_recipe(recipe_list, len(recipe_list))
+        if recipe == False:
+            while(recipe == False):
+                print("Invalid input, try again or exit?")
+                option_choice = input("Y or N?\n> ")
+                if(option_choice.lower() == 'y'):
+                    recipe = f.choose_recipe(recipe_list, len(recipe_list))
                 else:
-                    #when user enters a value to stop editing recipes, exit while loop
-                    print("Returning from loop.")
                     break
-            #end of while loop, always exited via break statement
-        else:
-            print("Moving onto the next element.")
-    print("Complete!")
+
+        ##create index for recipe_list that will enumerate, and var recipe that will hold the value of recipe_list sequentially
+        #for index, recipe in enumerate(recipe_list):
+        #    #TODO Revamp this code to accept an integer or string to select recipe to have modified
+        #    print(f"{index} - {recipe.recipe_name}? Enter Y, index, or recipe name if yes.")
+        #    #if upper or lowercase y is entered, default to lowercase and test for a match meaning 'yes'
+        #    if f.user_confirm():
+        while(True): #As long as running variable is true, loop
+            #print recipe contents to the terminal will provide user with contents without having to go through separate menus/options
+            print()
+            recipe.view()
+            print("What would you like to modify?\nEnter '1' for recipe name.\nEnter '2' for ingredients.\nEnter '3' for steps.\nAnything else to exit.")
+            option_choice = f.make_choice()
+            if option_choice == '1':
+                f.modify_recipe_name(recipe)
+            elif option_choice == '2':
+                #Script checks for values 1-3, and if user does not enter one of the values, exit loop
+                f.modify_ingredients(recipe)
+            elif option_choice == '3':
+                #Script checks for values 1-3, and if user does not enter one of the values, exit loop
+                f.modify_steps(recipe)
+            else:
+                #when user enters a value to stop editing recipes, exit while loop
+                print("Error, invalid choice.")
+                print("Returning from loop.")
+                break
+                #end of while loop, always exited via break statement
+            #else:
+            #    print("Moving onto the next element.")
+        #print("Complete!")
+        #if(something)
+            #break
+    #EndOfWhileLoop
 
 #Function used in tandem with recipe_menu() to logically decide what to do after recieving user input for the recipe_menu() function
 def recipe_menu_choice(option, recipe_list, running):
@@ -272,7 +192,7 @@ def recipe_menu_choice(option, recipe_list, running):
         print("\nWhat would you like to do?")
         print("1. Save.")
         print("2. Load.")
-        choice = make_choice()
+        choice = f.make_choice()
         if choice == "1":
             save_recipe(recipe_list)
         elif choice == "2":
@@ -328,7 +248,7 @@ recipe_menu()
 
 while(status.get_running()):
     print("Enter '9' to print the menu again.")
-    option = make_choice()
+    option = f.make_choice()
     recipe_menu_choice(option, recipe_list, status)
 print("Goodbye!")
 exit(1)

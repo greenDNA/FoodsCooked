@@ -58,9 +58,12 @@ class Recipe():
 
     #Function to print the contents of a recipe object to the terminal
     def view(self):
-        print(self.get_recipe_name())
+        print("Recipe: " + self.get_recipe_name())
+        print("Ingredients")
         print(self.get_ingredients_list())
+        print("Steps")
         print(self.get_steps_list())
+        print()
 
     #Function to take string from a file holding Recipe objects and break them down into meaningful pieces of data
     def file_recipe_recover(self):
