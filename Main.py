@@ -132,7 +132,6 @@ def recipe_edit(recipe_list):
     #ingredient_choice = None #Variable for holding the ingredient input the user enters
     #step_choice = None #Variable that follows suit like 'ingredient_choice' variable
 
-    #print(len(recipe_list)) #debug statement
     while(True):
         f.print_recipe_list_with_indices(recipe_list)
         print("Which would you like to modify?")
