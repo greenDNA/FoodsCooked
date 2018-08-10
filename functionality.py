@@ -138,8 +138,9 @@ def modify_steps(recipe):
             break
 
 def print_recipe_list_with_indices(recipe_list):
-        #print out all recipes currently in the recipe_list as a reminder
-        #for recipe in recipe_list:    for index in range(len(recipe_list)):
+    #print out all recipes currently in the recipe_list as a reminder
+    #for recipe in recipe_list:
+    for index in range(len(recipe_list)):
         #TODO Modify statement to be more clean
         print(f"({index}) - {recipe_list[index].recipe_name}")
 
@@ -154,6 +155,8 @@ def choose_recipe(recipe_list, length):
         #if user_input in range(length):
             #are you sure statement
             return recipe_list[as_int]
+        elif as_int >= length:
+            return False
     else:
         for index in range(length):
             #Case insensitive

@@ -145,7 +145,9 @@ def recipe_edit(recipe_list):
                 if(option_choice.lower() == 'y'):
                     recipe = f.choose_recipe(recipe_list, len(recipe_list))
                 else:
-                    break
+                    return
+        #TODO Implement a line around here that handles breaking from the while loop or recipe_edit function entirely.
+        #The return statement above appears to have solved the issue, but code needs cleanup still
 
         ##create index for recipe_list that will enumerate, and var recipe that will hold the value of recipe_list sequentially
         #for index, recipe in enumerate(recipe_list):
@@ -211,10 +213,12 @@ def recipe_menu_choice(option, recipe_list, running):
         #How many of each ingredient do you need in the recipe
         #How many ingredients do you have
         #Compare 'pantry' with recipe and what is missing you need
+        #Best implemented with user account data
         running.make_False()
     elif option == "6":
         print("Okay, let's declare a recipe your favorite!")
         #set a flag or option for a recipe, member variable maybe and have that declare it as favorite
+        #most relevant to user save data account
         running.make_False()
     elif option == "7":
         print("Okay, let's print a recipe!")
@@ -228,6 +232,7 @@ def recipe_menu_choice(option, recipe_list, running):
         print("Okay, let's print a grocery list!")
         #draft a grocery list and print the necessary ingredients you need
         #maybe add an option for saving/loading inventory of ingredients already owned. Add and subtract those numbers with the recipe requirements so you know what you need and do not need to get. I dunno if I want to add a cooking simulator add-on eventually to this project. But if I do be able to handle: Not enough ingredients scenario. Maybe this project leads to a cooking game? RPG?
+        #can only implement after writing a grocery list
         running.make_False()
     elif option == "9":
         recipe_menu()
