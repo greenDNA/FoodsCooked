@@ -1,5 +1,6 @@
 import os
 #Class to house all of my recipe related functionality
+#TODO implement a way to save the date of when a recipe is stored and/or modified
 class Recipe():
 
     #Simple constructor

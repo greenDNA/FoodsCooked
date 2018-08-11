@@ -26,6 +26,8 @@ import os #import used for os.startfile() that we use to print
 from programstatus import ProgramStatus
 from recipe import Recipe
 import functionality as f
+from account import Account
+from pantry import Pantry
 
 #Message printed when application begins
 def main_menu():
@@ -245,8 +247,29 @@ def recipe_menu_choice(option, recipe_list, running):
 recipe_list = [] #list to hold recipes entered sequentially
 
 status = ProgramStatus()
-main_menu()
+main_menu() # prints welcome message
+# new user enter XXX, returning user enter XXX, or express mode which has access to a public account to view and create recipes(admin account can modify public recipes from express mode)
+#if new, create a new user account, else if returning load user account
 user = get_user_name()
+
+print("Are you a new, returning, or express user?\n1) - New\n2) - Load\n3) - Express")
+mode = input("> ")
+if mode == '1':
+    mode = 'new'
+elif mode == '2':
+    mode = 'load'
+else:
+    mode = 'express'
+account = Account(mode)
+while(True):
+    #summin
+    account.pantry.create_pantry_shelf('meat')
+    account.pantry.create_pantry_shelf('vegetable')
+    account.pantry.access_shelf('meat')
+    account.pantry.print_pantry_shelves()
+    account.pantry.print_pantry_contents()
+    account.pantry.remove_pantry_shelf('vegetable')
+
 recipe_menu()
 
 
