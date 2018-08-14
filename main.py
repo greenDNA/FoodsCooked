@@ -80,8 +80,9 @@ def new_recipe(recipe_list):
 
 
 #Function to take the recipes from the main list and save the elements into a text file to access later
-def save_recipe(recipe_list):
-    filename = open("recipe_class.txt", "w")#edited name from "recipe.txt"
+def save_recipe(recipe_list, recipefilename):
+    #filename = open("recipe_class.txt", "w")#edited name from "recipe.txt"
+    filename = open(recipefilename, "w")
     for recipe in recipe_list:
         filename.write(recipe.get_recipe_name() + '|')
         filename.write('~|') #Add tilde for uniformity
@@ -95,10 +96,11 @@ def save_recipe(recipe_list):
 
 #Function to take recipes from text file and load them into the main list of the script "recipe_list"
 #Recipe objects are stored as a line of text, delimited by pipes(|) and tildes(~)
-def load_recipe(recipe_list):
+def load_recipe(recipe_list, recipefilename):
     #As I am overhauling this function, I am thinking of taking inspiration from the store_recipe() function
     file_list = []
-    filename = open("recipe_class.txt", "r")
+    #filename = open("recipe_class.txt", "r")
+    filename = open(recipefilename, "r")
 
     #Example formatting
     #NAME|~|INGREDIENT|INGREDIENT|INGREDIENT|INGREDIENT|~|STEP|STEP|STEP|STEP|STEP|STEP|~|
@@ -261,6 +263,8 @@ elif mode == '2':
 else:
     mode = 'express'
 account = Account(mode)
+
+""" Example test code to check how the account module works with the pantry module
 while(True):
     #summin
     account.pantry.create_pantry_shelf('meat')
@@ -269,13 +273,22 @@ while(True):
     account.pantry.print_pantry_shelves()
     account.pantry.print_pantry_contents()
     account.pantry.remove_pantry_shelf('vegetable')
+"""
 
+load_recipe(recipe_list, account.recipefilename)
 recipe_menu()
+while(status.get_running()):
+    print("Enter '9' to print the menu again.")
+    option = f.make_choice()
+    recipe_menu_choice(option, recipe_list, status)
+save_recipe(recipe_list, account.recipefilename)
 
 
+""" general functionality of program in this loop
 while(status.get_running()):
     print("Enter '9' to print the menu again.")
     option = f.make_choice()
     recipe_menu_choice(option, recipe_list, status)
 print("Goodbye!")
+"""
 exit(1)
