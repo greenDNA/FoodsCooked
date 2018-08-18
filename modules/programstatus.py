@@ -3,6 +3,10 @@ class ProgramStatus():
     #constructor function. Set member variable running to True
     def __init__(self):
         self.running = True
+        self.account_mode = True
+        self.recipe_mode = ""
+        self.grant_access = False
+        self.account_access = ""
 
     #alter value of running to False
     def make_False(self):

@@ -1,4 +1,4 @@
-from shelf import Shelf
+from modules.shelf import Shelf
 
 class Pantry():
 
@@ -59,3 +59,32 @@ class Pantry():
                         self.accessing_shelf = False
                     # Add to shelf, remove from shelf,
         self.accessing_shelf = True
+
+    def print_pantry_operations(self):
+        print("Pantry options.")
+        print("1. Create a shelf.")
+        print("2. Remove a shelf.")
+        print("3. Print pantry contents.")
+        print("4. Print pantry shelves.")
+        print("5. Access a shelf.")
+        print("9. Reprint pantry operations.")
+        print("0. Exit menu.")
+
+    def pantry_menu_choice(self, option, recipe_list, status):
+        if option == "1":
+            print("Okay, let's create a shelf.")
+        elif option == "2":
+            print("Okay, let's remove a shelf.")
+        elif option == "3":
+            print("Okay, let's print pantry contents.")
+        elif option == "4":
+            print("Okay, let's print pantry shelves")
+        elif option == "5":
+            print("Okay, let's access a shelf.")
+        elif option == "9":
+            self.print_pantry_operations()
+        elif option == "0":
+            status.running = False
+        else:
+            print("Sorry, that option does not exist.")
+            status.running = False

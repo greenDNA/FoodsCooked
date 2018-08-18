@@ -1,6 +1,5 @@
 #from Main import user_confirm, make_choice
-from recipe import Recipe
-# Modue file used to housekeep general functionality that does not need to exist as a variable
+# Module file used to housekeep general functionality that does not need to exist as a variable
 
 #Generic function used to return user input with a prompter already configured
 def make_choice():

@@ -21,13 +21,11 @@ I got an error about Attribute when importing Main into functionality, as functi
 """
 
 # from sys import argv # I don't know if i'll need to take in command-line arguments at some point
-import sys #import used for exit() function
-import os #import used for os.startfile() that we use to print
-from programstatus import ProgramStatus
-from recipe import Recipe
-import functionality as f
-from account import Account
-from pantry import Pantry
+from modules.programstatus import ProgramStatus
+from modules.recipe import Recipe
+from modules import functionality as f
+from modules.account import Account
+
 
 #Message printed when application begins
 def main_menu():
@@ -37,6 +35,30 @@ def main_menu():
 def get_user_name():
     return input("What might your name be?\n> ")
 
+def ask_user_type():
+    """Method to print to terminal a request for the user to enter if they want a new account, load an account, or to use express."""
+    print("Are you a new, returning, or express user?\n1) - New\n2) - Load\n3) - Express")
+    mode = input("> ")
+    if mode == '1':
+        mode = 'new'
+    elif mode == '2':
+        mode = 'load'
+    else:
+        mode = 'express'
+    return Account(mode)
+
+def prompt_access_from_account():
+    """Ask user to select an area of the account to examine"""
+    print("Enter the number for the part of your account would you like to manage.\n1) - Recipes\n2) - Pantry")
+    setting = input("Which number will you choose?\n> ")
+    while setting.isnumeric() is not True:
+        setting = input("Incorrect input, enter a number.\n1) - Recipes\n2) - Pantry")
+    if setting == '1':
+        return 'recipe'
+    elif setting == '2':
+        return 'pantry'
+    else:
+        return 'quit'
 
 #Function that prints to terminal all possible actions of the script, not all function, and possibly more added in future, or sub categories/menus used instead.
 def recipe_menu():
@@ -173,6 +195,7 @@ def recipe_edit(recipe_list):
             elif option_choice == '3':
                 #Script checks for values 1-3, and if user does not enter one of the values, exit loop
                 f.modify_steps(recipe)
+
             else:
                 #when user enters a value to stop editing recipes, exit while loop
                 print("Error, invalid choice.")
@@ -254,15 +277,32 @@ main_menu() # prints welcome message
 #if new, create a new user account, else if returning load user account
 user = get_user_name()
 
-print("Are you a new, returning, or express user?\n1) - New\n2) - Load\n3) - Express")
-mode = input("> ")
-if mode == '1':
-    mode = 'new'
-elif mode == '2':
-    mode = 'load'
-else:
-    mode = 'express'
-account = Account(mode)
+while(True):
+    """Inside is a loop to manage deciding on user account"""
+    user_account = ask_user_type()  # User chooses account mode. Account object created and returned
+    status.account_mode = True
+    #decide user mode pantry/recipes
+    while(status.account_mode):
+        """Deciding what part of account to access"""
+        status.account_access = prompt_access_from_account()
+        if status.account_access.lower() == 'pantry'.lower():
+            user_account.pantry.print_pantry_operations()
+            status.running
+            while status.running:
+                print("Enter '9' to print the menu again.")
+                option = f.make_choice()
+                user_account.pantry.pantry_menu_choice(option, recipe_list, status)
+        elif status.account_access.lower() == 'recipe'.lower():
+            recipe_menu()
+            status.running
+            while status.running:
+                print("Enter '9' to print the menu again.")
+                option = f.make_choice()
+                recipe_menu_choice(option, recipe_list, status)
+        elif status.account_access.lower() == 'quit'.lower():
+            status.account_mode = False
+
+
 
 """ Example test code to check how the account module works with the pantry module
 while(True):

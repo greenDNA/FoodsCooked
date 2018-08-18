@@ -1,4 +1,4 @@
-from pantry import Pantry
+from modules.pantry import Pantry
 
 class Account():
 #import a library or module that handles passwords, their storage, and command line entering of passwords being hidden, as well as encrypting and decrypting the data
@@ -17,6 +17,7 @@ class Account():
         self.authorized = False
         self.password_confirm = False
         self.recipefile = False
+        self.recipe_list = []
 
         if mode == 'new':
             self.create_account()
