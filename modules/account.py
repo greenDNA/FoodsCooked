@@ -57,10 +57,14 @@ class Account():
     def load_account(self):
         """Function to load a user account that is stored locally"""
         if self.attempt_login():
+            #TODO
             #proceed
+            self.pantry = Pantry()
             return
         else:
+            # TODO
             #deny
+
             self.create_account()
         # return to main menu looping login screen
 
@@ -68,6 +72,7 @@ class Account():
         """Function with no user and accesses public recipes"""
         # check if account is guest or not if the username has a value or not
         self.username = False
+        self.pantry = Pantry()
         # return to main menu looping login screen
 
 
@@ -78,13 +83,15 @@ class Account():
         self.password = input("Password: ")
         self.passwordfilename = self.username + "_pass.txt"
         openfile = open(self.passwordfilename, 'r')
-        for line in openfile:
+        for index, line in enumerate(openfile):
             if self.username in line and self.password in line:
                 print("Username and Password found. Authorizing.")
                 self.authorized = True
-                openfile.close()
+            elif index > 0:
                 self.recipefilename = self.username + '_recipe.txt'
-                self.name = 'unknown'
+                self.name = line
+                print("Thank you, " + self.name)
+                openfile.close()
                 return self.authorized
         openfile.close()
         print("Username and Password not found.")
@@ -93,5 +100,5 @@ class Account():
     def save_account(self):
         """Create or overwrite a file for a particular user's credentials and save their newest data"""
         openfile = open(self.passwordfilename, 'w')
-        openfile.write(self.username + '\t' + self.password)
+        openfile.write(self.username + '\t' + self.password + '\n' + self.name)
         openfile.close()

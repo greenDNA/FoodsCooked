@@ -45,7 +45,7 @@ class Pantry():
             if name_of_shelf.lower() in shelf.shelf_name.lower():
                 while(self.accessing_shelf):
                     shelf.print_shelf_contents()
-                    print("Below are options for the pantry shelves:\n1) - Add to Shelf\n2) - Remove from Shelf\n")
+                    print("Below are options for the pantry shelves:\n1) - Add to Shelf\n2) - Remove from Shelf\nOther) - Exit")
                     self.option = input("> ")
                     if(self.option == '1'):
                         print("What would you like to add to the shelf?")
@@ -70,21 +70,31 @@ class Pantry():
         print("9. Reprint pantry operations.")
         print("0. Exit menu.")
 
-    def pantry_menu_choice(self, option, recipe_list, status):
+    def pantry_menu_choice(self, option, status):
         if option == "1":
             print("Okay, let's create a shelf.")
+            name = input("Name of shelf: ")
+            self.create_pantry_shelf(name)
         elif option == "2":
             print("Okay, let's remove a shelf.")
+            name = input("What shelf would you like to remove?\nName of shelf: ")
+            self.remove_pantry_shelf(name)
         elif option == "3":
             print("Okay, let's print pantry contents.")
+            self.print_pantry_contents()
         elif option == "4":
             print("Okay, let's print pantry shelves")
+            self.print_pantry_shelves()
         elif option == "5":
             print("Okay, let's access a shelf.")
+            name = input("What shelf would you like to access?\nName of shelf: ")
+            self.access_shelf(name)
         elif option == "9":
             self.print_pantry_operations()
         elif option == "0":
+            print("Exiting from pantry operations.")
             status.running = False
         else:
             print("Sorry, that option does not exist.")
+            print("Exiting from pantry operations.")
             status.running = False

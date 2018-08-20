@@ -40,12 +40,12 @@ def ask_user_type():
     print("Are you a new, returning, or express user?\n1) - New\n2) - Load\n3) - Express")
     mode = input("> ")
     if mode == '1':
-        mode = 'new'
+        return 'new'
     elif mode == '2':
-        mode = 'load'
+        return 'load'
     else:
-        mode = 'express'
-    return Account(mode)
+        return 'express'
+
 
 def prompt_access_from_account():
     """Ask user to select an area of the account to examine"""
@@ -270,16 +270,16 @@ def recipe_menu_choice(option, recipe_list, running):
 #Script begins
 
 recipe_list = [] #list to hold recipes entered sequentially
-
 status = ProgramStatus()
 main_menu() # prints welcome message
+
 # new user enter XXX, returning user enter XXX, or express mode which has access to a public account to view and create recipes(admin account can modify public recipes from express mode)
 #if new, create a new user account, else if returning load user account
-user = get_user_name()
+user = 'generic' #get_user_name()
 
 while(True):
-    """Inside is a loop to manage deciding on user account"""
-    user_account = ask_user_type()  # User chooses account mode. Account object created and returned
+    """Inside is a loop to manage deciding on user account to select"""
+    user_account = Account(ask_user_type())  # User chooses account mode. Account object created and returned
     status.account_mode = True
     #decide user mode pantry/recipes
     while(status.account_mode):
@@ -287,21 +287,25 @@ while(True):
         status.account_access = prompt_access_from_account()
         if status.account_access.lower() == 'pantry'.lower():
             user_account.pantry.print_pantry_operations()
-            status.running
+            status.running = True
             while status.running:
+                """All code in here accesses pantry options"""
                 print("Enter '9' to print the menu again.")
                 option = f.make_choice()
-                user_account.pantry.pantry_menu_choice(option, recipe_list, status)
+                user_account.pantry.pantry_menu_choice(option, status)
         elif status.account_access.lower() == 'recipe'.lower():
             recipe_menu()
-            status.running
+            status.running = True
             while status.running:
+                """All code in here accesses recipe options"""
                 print("Enter '9' to print the menu again.")
                 option = f.make_choice()
                 recipe_menu_choice(option, recipe_list, status)
         elif status.account_access.lower() == 'quit'.lower():
+            """Code executed to sign-out of user account"""
             status.account_mode = False
-
+    break
+print("Goodbye!")
 
 
 """ Example test code to check how the account module works with the pantry module
@@ -315,20 +319,4 @@ while(True):
     account.pantry.remove_pantry_shelf('vegetable')
 """
 
-load_recipe(recipe_list, account.recipefilename)
-recipe_menu()
-while(status.get_running()):
-    print("Enter '9' to print the menu again.")
-    option = f.make_choice()
-    recipe_menu_choice(option, recipe_list, status)
-save_recipe(recipe_list, account.recipefilename)
-
-
-""" general functionality of program in this loop
-while(status.get_running()):
-    print("Enter '9' to print the menu again.")
-    option = f.make_choice()
-    recipe_menu_choice(option, recipe_list, status)
-print("Goodbye!")
-"""
-exit(1)
+#exit(1)

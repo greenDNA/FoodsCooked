@@ -1,3 +1,5 @@
+import modules.account
+
 #from Main import user_confirm, make_choice
 # Module file used to housekeep general functionality that does not need to exist as a variable
 
@@ -8,6 +10,14 @@ def make_choice():
 #Function used as a boolean value to refer to the user agreeing to some statement
 def user_confirm():
     return input().lower() == 'y'
+
+
+"""Functions that work with user accounts"""
+
+
+
+
+"""Functions that work with recipes"""
 
 def modify_recipe_name(recipe):
     """Function used to modify recipe_name value of a recipe object"""
