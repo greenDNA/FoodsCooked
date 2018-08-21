@@ -60,18 +60,7 @@ def prompt_access_from_account():
     else:
         return 'quit'
 
-#Function that prints to terminal all possible actions of the script, not all function, and possibly more added in future, or sub categories/menus used instead.
-def recipe_menu():
-    print("What would you like to do?")
-    print("1. Enter recipe.")
-    print("2. Account.")
-    print("3. Edit recipe.")
-    print("4. View recipes.")
-    print("5. Setup grocery list.")
-    print("6. Favorite a recipe.")
-    print("7. Print a recipe.")
-    print("8. Print grocery list.")
-    print("0. Exit.")
+
 
 #Function called when user is to add a new recipe into his or her account.
 #Currently undergoing changes as Recipe() class is implemented
@@ -210,7 +199,7 @@ def recipe_edit(recipe_list):
     #EndOfWhileLoop
 
 #Function used in tandem with recipe_menu() to logically decide what to do after recieving user input for the recipe_menu() function
-def recipe_menu_choice(option, recipe_list, running):
+def recipe_menu_choice(option, recipe_list, running, recipefilename):
     if option == "1":
         print("Okay, let's enter a recipe!")
         new_recipe(recipe_list)
@@ -222,9 +211,9 @@ def recipe_menu_choice(option, recipe_list, running):
         print("2. Load.")
         choice = f.make_choice()
         if choice == "1":
-            save_recipe(recipe_list)
+            save_recipe(recipe_list, recipefilename)
         elif choice == "2":
-            load_recipe(recipe_list)
+            load_recipe(recipe_list, recipefilename)
         else:
             print(f"Sorry {user}, that option does not exist.")
             running.make_False()
@@ -262,7 +251,7 @@ def recipe_menu_choice(option, recipe_list, running):
         #can only implement after writing a grocery list
         running.make_False()
     elif option == "9":
-        recipe_menu()
+        Recipe.recipe_menu()
     else:
         print(f"Sorry {user}, that option does not exist.")
         running.make_False()
@@ -286,21 +275,21 @@ while(True):
         """Deciding what part of account to access"""
         status.account_access = prompt_access_from_account()
         if status.account_access.lower() == 'pantry'.lower():
-            user_account.pantry.print_pantry_operations()
             status.running = True
             while status.running:
+                user_account.pantry.print_pantry_operations()
                 """All code in here accesses pantry options"""
                 print("Enter '9' to print the menu again.")
                 option = f.make_choice()
                 user_account.pantry.pantry_menu_choice(option, status)
         elif status.account_access.lower() == 'recipe'.lower():
-            recipe_menu()
             status.running = True
             while status.running:
+                Recipe.recipe_menu()
                 """All code in here accesses recipe options"""
                 print("Enter '9' to print the menu again.")
                 option = f.make_choice()
-                recipe_menu_choice(option, recipe_list, status)
+                recipe_menu_choice(option, recipe_list, status, user_account.recipefilename)
         elif status.account_access.lower() == 'quit'.lower():
             """Code executed to sign-out of user account"""
             status.account_mode = False

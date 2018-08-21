@@ -12,11 +12,10 @@ class Account():
         self.email = None
         self.backup_authentication = None
         self.security_question = None
-        self.pantry = None
         self.passwordfilename = None #'passwords.txt' # name of password file
         self.authorized = False
         self.password_confirm = False
-        self.recipefile = False
+        self.recipefilename = False
         self.recipe_list = []
 
         if mode == 'new':
@@ -71,8 +70,10 @@ class Account():
     def express_account(self):
         """Function with no user and accesses public recipes"""
         # check if account is guest or not if the username has a value or not
-        self.username = False
+        self.username = 'express'
         self.pantry = Pantry()
+        self.recipefilename = 'express_recipe.txt'
+        self.name = 'express'
         # return to main menu looping login screen
 
 

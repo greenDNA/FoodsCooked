@@ -67,6 +67,19 @@ class Recipe():
         print(self.get_steps_list())
         print()
 
+    # Function that prints to terminal all possible actions of the script, not all function, and possibly more added in future, or sub categories/menus used instead.
+    def recipe_menu():
+        print("What would you like to do?")
+        print("1. Enter recipe.")
+        print("2. Account.")
+        print("3. Edit recipe.")
+        print("4. View recipes.")
+        print("5. Setup grocery list.")
+        print("6. Favorite a recipe.")
+        print("7. Print a recipe.")
+        print("8. Print grocery list.")
+        print("0. Exit.")
+
     #Function to take string from a file holding Recipe objects and break them down into meaningful pieces of data
     def file_recipe_recover(self):
         pass

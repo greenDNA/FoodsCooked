@@ -30,13 +30,17 @@ class Pantry():
 
     def print_pantry_contents(self):
         """Function to print out all contents in the pantry"""
+        print()
         for element in self.pantry_contents:
             element.print_shelf_contents()
+        print()
 
     def print_pantry_shelves(self):
         """Function to print out names of all shelves in pantry"""
+        print()
         for element in self.pantry_contents:
             print(element.shelf_name)
+        print()
 
     def access_shelf(self, name_of_shelf):
         """Function to access a reference to a shelf and and apply operations to that specific shelf"""
@@ -60,6 +64,14 @@ class Pantry():
                     # Add to shelf, remove from shelf,
         self.accessing_shelf = True
 
+    def save_pantry(self):
+        """Function to save pantry contents to designated user's file"""
+        pass
+
+    def load_pantry(self):
+        """Function to load pantry contents to designated user's file"""
+        pass
+
     def print_pantry_operations(self):
         print("Pantry options.")
         print("1. Create a shelf.")
@@ -69,6 +81,7 @@ class Pantry():
         print("5. Access a shelf.")
         print("9. Reprint pantry operations.")
         print("0. Exit menu.")
+        print()
 
     def pantry_menu_choice(self, option, status):
         if option == "1":
