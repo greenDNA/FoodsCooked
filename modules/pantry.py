@@ -66,11 +66,61 @@ class Pantry():
 
     def save_pantry(self):
         """Function to save pantry contents to designated user's file"""
-        pass
+        #filename = open("recipe_class.txt", "w")#edited name from "recipe.txt"
+        # TODO edit filename line to work based on variables and not be predetermined
+        filename = open("pantry_file.txt", "w")
+        for shelf in self.pantry_contents:
+            filename.write(shelf.shelf_name + '|')
+            filename.write('~|')  # Add tilde for uniformity
+            for item in shelf.contents:
+                filename.write(item + '|')
+            filename.write('\n')  # End of steps as above, a second delimter. Add newline after formatting
+        filename.close()
 
     def load_pantry(self):
         """Function to load pantry contents to designated user's file"""
-        pass
+        # TODO edit filename line to work based on variables and not be predetermined
+        # filename = open("recipe_class.txt", "r")
+        filename = open("pantry_file.txt", "r")
+        final_list = []
+        for shelf_index, line in enumerate(filename):
+            parse_line = line.strip('\n').split('~') #break the line into an array delimited by the '~', newline at end of line stripepd away
+            for split_parse in parse_line:
+                final_list.append(split_parse.strip('|'))
+            for index, parse in enumerate(final_list):
+                if index == 0:
+                    self.pantry_contents.append(Shelf(parse))
+                else:
+                    for number, item in enumerate(parse.strip('|').split('|')):
+                        self.pantry_contents[shelf_index].contents.append(parse)
+        filename.close()
+
+    def load_recipe(recipe_list, recipefilename):
+
+        for line in filename:
+            # TODO have the instructions be cleaned up and coded neater alike the example below
+            recipe = Recipe()  # Creation of a new Recipe object
+            final_list = []  # Represents data parsed into a completed list that can be iterated and put into variables
+            counter = 0  # Controls which part of the recipe object will be modified/appended to; also resets to 0 on each new line read in from file
+            file_list = line.strip('\n').split(
+                '~')  # break the line into an array delimited by '~' characters as the formatting
+            for split_list in file_list:
+                final_list.append(split_list.strip('|').split('|'))
+            for final_iter in final_list:  # List of Lists to be iterated
+                for element in final_iter:  # List to be iterated, and we know what elements we are using by the 'counter' variable. Better solution somewhere to improve this?
+                    if (counter == 0):
+                        recipe.recipe_name = element
+                    elif (counter == 1):
+                        recipe.ingredients_list.append(element)
+                    else:
+                        recipe.steps_list.append(element)
+                counter += 1
+            recipe.view()
+            # Add new recipe object to main recipe_list, list
+            recipe_list.append(recipe)
+        filename.close()
+
+
 
     def print_pantry_operations(self):
         print("Pantry options.")
@@ -79,6 +129,8 @@ class Pantry():
         print("3. Print pantry contents.")
         print("4. Print pantry shelves.")
         print("5. Access a shelf.")
+        print("6. Save shelf.")
+        print("7. Load shelf.")
         print("9. Reprint pantry operations.")
         print("0. Exit menu.")
         print()
@@ -102,6 +154,10 @@ class Pantry():
             print("Okay, let's access a shelf.")
             name = input("What shelf would you like to access?\nName of shelf: ")
             self.access_shelf(name)
+        elif option == "6":
+            self.save_pantry()
+        elif option == "7":
+            self.load_pantry()
         elif option == "9":
             self.print_pantry_operations()
         elif option == "0":
@@ -111,3 +167,4 @@ class Pantry():
             print("Sorry, that option does not exist.")
             print("Exiting from pantry operations.")
             status.running = False
+

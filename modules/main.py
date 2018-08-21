@@ -295,17 +295,4 @@ while(True):
             status.account_mode = False
     break
 print("Goodbye!")
-
-
-""" Example test code to check how the account module works with the pantry module
-while(True):
-    #summin
-    account.pantry.create_pantry_shelf('meat')
-    account.pantry.create_pantry_shelf('vegetable')
-    account.pantry.access_shelf('meat')
-    account.pantry.print_pantry_shelves()
-    account.pantry.print_pantry_contents()
-    account.pantry.remove_pantry_shelf('vegetable')
-"""
-
 #exit(1)
