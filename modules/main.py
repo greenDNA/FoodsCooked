@@ -285,6 +285,7 @@ while(True):
         elif status.account_access.lower() == 'recipe'.lower():
             status.running = True
             while status.running:
+                # TODO Place recipe_menu_choice() into the Account class or rewrite it to be called from an object and be less cluttered
                 Recipe.recipe_menu()
                 """All code in here accesses recipe options"""
                 print("Enter '9' to print the menu again.")

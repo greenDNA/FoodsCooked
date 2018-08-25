@@ -7,3 +7,117 @@ Initiate application where it brings the user to a sign-in screen
 *Store usernames/passwords in a unique file, and security questions in another unique file
 
 *Use enumerate in loops to have a numerical counter variable when listing list contents in numerical order
+
+FoodsCooked
+
+Welcome Screen - Prints welcome text to the user about the application then moves onto a loop
+User Account Loop - Establish a loop that allows user to decide what mode of the application they would like to access
+    New/Create new account
+        Provide user's {name, username, password} - Use this information to set up files associated with user account
+            Check for username being used previously
+                If so, print to user they must choose another username
+                If not, continue
+                    Create associated files with new user account{password file, recipe file, pantry file}
+    Load/Resume an account (Use a try/catch statement somewhere)
+        Ask user for a {username and password} - Use this information to look-up files associated with user account
+        Once found, or if found - Proceed to check for account validity in security with password and username
+            If approved, log into user account and load their profile information into the running script
+                Proceed to move onto "Action Loop" - meaning access Recipes or Pantry options
+            If failed, inform user of the failed attempt with details and ask if they would like to retry
+                Details being deliberate{username not found, or incorrect password for username}
+                    Username not found - No file or information found associated with provided username
+                    Incorrect password for username - Username found, incorrect password provided
+    Express/Public account access
+        Load express profile which will provide recipes for use
+        Provide empty pantry for manipulation
+            Perhaps the user will want to organize a list of items they have on hand to compare with recipes
+            they'll intend to make later
+                I want it to work in tandem with the grocery list functionality in the Recipe class
+                    My vision is for the pantry to serve as a reference point.
+                    Check pantry for ingredients and quantity.
+                        If found, ask if user wants to subtract what the recipe calls for from the pantry's stock,
+                        or to add the full quantity to the list
+                        An option like: *Print recipe with ingredient amounts* followed by
+                        "Would you like to account for ingredients in your pantry?"
+                            If user decides to, subtract what is needed by the recipe from the pantry and reprint the
+                            list by what is remaining to be purchased on the grocery list
+                            If nothing, then print that to user
+                            Provide functionality to reverse or undo the subtraction of ingredients from the pantry
+                            should the user want to do that.
+
+    What is in a User Account
+        Object to hold user account information (Account.py)
+            {Name, Username, Password, Pantry reference, Recipe[] list} as the main or crucial member variables
+                Name - holds user's name as a way to remember and refer to the name they provided
+                Username - is used mainly to uniquely identify the user's data that is stored. Can be used as a signature
+                Password - will hold the desired string the user wants his or her password to be
+                Pantry - provides a reference to the Pantry object that is instantiated when choosing an account mode.
+                Recipe_list[] - holds a collection of recipes to be created or loaded from a user's saved data file records
+            {Passwordfilename, Recipefilename, password confirm, authorized}
+                Passwordfilename - as the name suggests builds a filename to access the password file for a particular username
+                Recipefilename - as the name suggests builds a filename to access the recipe file for a particular username
+                Password confirm - boolean variable assigned a truth value when password is indeed confirmed as a match or valid
+                Authorized - boolean variable used to express the account is authorized for access
+            {Email, favorite recipe, backup authentication, security question}
+                Email - user provides an email on-file for security or to receive emailed content, or account recovery
+                Favorite recipe - marks a reference to a recipe and will be displayed before the printing of any other recipes
+                Backup authentication - secondary method of contact. Phone number, second email, etc.
+                Security question - a question used to recover the account in case the user forgets his or her password/username
+
+
+    Decide to access Recipe or Pantry options
+        Print to terminal options for the user to choose from
+        Using numerical input for ease in choosing an option of Recipe or Pantry
+
+    Access Recipe Operations
+        A loop that is existing at a sub-level to the user-account-mode loop
+        Print a list of operations a user may choose from then await user input
+        Provide an option to back out of the current menu
+
+        print("What would you like to do?")
+            print("1. Enter recipe.")
+                Invoke function to allow user to enter in a recipe
+            print("2. Account.")
+                Invoke function to allow user to access save and load functions
+            print("3. Edit recipe.")
+                Invoke function to access recipes and have the user modify their instructions
+            print("4. View recipes.")
+                Invoke function to print recipes to terminal
+            print("5. Setup grocery list.")
+                Invoke function to work in tandem with pantry to provide a grocery list of things to obtain
+            print("6. Favorite a recipe.")
+                Invoke function to highlight the chosen recipe as favorited
+            print("7. Print a recipe.")
+                Invoke function to access a system's printer and have it print out the list as a printer job
+            print("8. Print grocery list.")
+                Invoke function to take the setup grocery list and print it using the system's printer
+            print("0. Exit.")
+                Changes the status boolean variable to a False value and exits from Recipe Operations loop
+
+    Access Pantry Operations
+        A loop that is existing at a sub-level to the user-account-mode loop
+        Print a list of operations a user may choose from then await user input
+        Provide an option to back out of the current menu
+
+        print("Pantry options.")
+            print("1. Create a shelf.")
+                Invoke function to add a shelf object to the list within the pantry object "pantry_contents"
+            print("2. Remove a shelf.")
+                Invokes a function that removes a shelf object from the "pantry_contents" list
+            print("3. Print pantry contents.")
+                Invokes a function to print the name of the shelf and its contents
+            print("4. Print pantry shelves.")
+                Invokes a function to print the names of each shelf in the pantry
+            print("5. Access a shelf.")
+                Invokes a function to allow access to a shelf to be modified
+                Allows user to add items to a shelf or to remove items from a shelf
+            print("6. Save shelf.")
+                Invokes a function to save the pantry to a file
+            print("7. Load shelf.")
+                Invokes a function to load the pantry from a file
+            print("9. Reprint pantry operations.")
+                Invokes a function to print pantry operations/options again # Depreciated, the loop prints this already no need to have it
+            print("0. Exit menu.")
+                Changes the status boolean variable to a False value and exits from Pantry Operations loop
+
+

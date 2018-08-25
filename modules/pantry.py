@@ -31,15 +31,15 @@ class Pantry():
     def print_pantry_contents(self):
         """Function to print out all contents in the pantry"""
         print()
-        for element in self.pantry_contents:
-            element.print_shelf_contents()
+        for shelf in self.pantry_contents:
+            shelf.print_shelf_contents()
         print()
 
     def print_pantry_shelves(self):
         """Function to print out names of all shelves in pantry"""
         print()
-        for element in self.pantry_contents:
-            print(element.shelf_name)
+        for shelf in self.pantry_contents:
+            print(shelf.shelf_name)
         print()
 
     def access_shelf(self, name_of_shelf):
@@ -91,6 +91,7 @@ class Pantry():
                 if index == 0:
                     self.pantry_contents.append(Shelf(parse))
                 else:
+                    # TODO FIX HERE
                     for number, item in enumerate(parse.strip('|').split('|')):
                         self.pantry_contents[shelf_index].contents.append(parse)
         filename.close()

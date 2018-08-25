@@ -8,15 +8,18 @@ class Account():
         self.username = None
         self.password = None
         self.pantry = None
-        self.favorite_recipe = None
-        self.email = None
-        self.backup_authentication = None
-        self.security_question = None
+        self.recipe_list = []
+
         self.passwordfilename = None #'passwords.txt' # name of password file
         self.authorized = False
         self.password_confirm = False
         self.recipefilename = False
-        self.recipe_list = []
+
+        self.favorite_recipe = None
+        self.email = None
+        self.backup_authentication = None
+        self.security_question = None
+
 
         if mode == 'new':
             self.create_account()
